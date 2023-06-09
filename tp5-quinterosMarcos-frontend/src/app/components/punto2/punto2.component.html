@@ -1,0 +1,39 @@
+<form class="container border p-4">
+    <fieldset class="nav justify-content-center bg-primary" style="color: aliceblue;">
+        <legend class="bg-primary-subtle" style="color: rgb(13, 74, 127);">Conversor de Divisas</legend>
+        <div class="mb-3 col-sm-12">
+            <label id="cantidad" class="form-label">Cantidad</label>
+            <input type="text" id="cantidadNum" class="form-control" placeholder="Cantidad" [(ngModel)]="cantidadOrigen"
+                [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-mb-3 col-sm-4">
+            <label for="disabledSelect" class="form-label">Monida Origen: </label>
+            <select id="disabledSelect" class="form-select" [(ngModel)]="monedaOrigen"
+                [ngModelOptions]="{standalone: true}">
+                <option>USD</option>
+                <option>EUR</option>
+                <option>ARS</option>
+            </select>
+        </div>
+        <div class="col-mb-3 col-sm-4">
+            <label for="disabledSelect" class="form-label">Moneda Destino:</label>
+            <select id="disabledSelect" class="form-select" [(ngModel)]="monedaDestino"
+                [ngModelOptions]="{standalone: true}">
+                <option>USD</option>
+                <option>EUR</option>
+                <option>ARS</option>
+            </select>
+        </div>
+        <div class="mb-3 col-sm-12">
+            <label id="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="Ingrese email" [(ngModel)]="emailCliente"
+                [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-mb-3 col-sm-4">
+            <button type="submit" class="btn btn-primary bg-warning" routerLink="/punto2-list"
+                (click)="obtenerConversion()">Convertir
+                -></button>
+        </div>
+        <br>
+    </fieldset>
+</form>

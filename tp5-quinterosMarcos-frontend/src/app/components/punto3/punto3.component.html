@@ -1,0 +1,66 @@
+<form #ticketForm="ngForm" class="container border p-4">
+  <h3>Formulario De Ticket</h3>
+  <div class="container">
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio</label>
+      <input type="number" class="form-control" id="dni" name="dni" [(ngModel)]="precioTicket" required min="1"
+        #precio="ngModel" />
+      <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="alert alert-danger">
+        <!-- Si es invalido, touched si la caja a sido tocada, dirty cuando la caja no esta limpia  -->
+        <div *ngIf="precio.errors?.['required']"> <!-- Si es que tiene errores si contiene required-->
+          El Precio es requerido.
+        </div>
+        <div *ngIf="precio.errors?.['min']">
+          Solo se permiten valores positivos en el precio.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3 form-check">
+      <label for="tipo" class="form-label">Tipo Espectador</label>
+      <select class="form-select" aria-label="Default select example" id="tipo" name="tipo" [(ngModel)]="categoria"
+        required #tipo="ngModel">
+        <option value="n" disabled>Seleccione una opcion</option>
+        <option value="e">Extranjero</option>
+        <option value="l" selected>Local</option>
+      </select>
+      <div *ngIf="tipo.invalid && (tipo.dirty || tipo.touched)" class="alert alert-danger">
+        <div *ngIf="tipo.errors?.['required']">
+          El Tipo de Espectador es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="fecha" class="form-label">Fecha de Compra</label>
+      <input type="string" class="form-control" id="fecha" name="fecha" [(ngModel)]="fechaTicket" required 
+        #fecha="ngModel" />
+      <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="alert alert-danger">
+        <!-- Si es invalido, touched si la caja a sido tocada, dirty cuando la caja no esta limpia  -->
+        <div *ngIf="fecha.errors?.['required']"> <!-- Si es que tiene errores si contiene required-->
+          La Fecha de Compra es requerida.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3 form-check">
+      <label for="id" class="form-label">Id Espectador</label>
+      <select class="form-select" aria-label="Default select example" id="id" name="id" [(ngModel)]="idEspectador"
+        required #id="ngModel">
+        <option *ngFor="let espectador of espectadores" value={{espectador._id}}>{{espectador.nombre}}</option>
+      </select>
+      <div *ngIf="id.invalid && (id.dirty || id.touched)" class="alert alert-danger">
+        <div *ngIf="id.errors?.['required']">
+          El Espectador es requerido.
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" [disabled]="!ticketForm.form.valid" *ngIf=" cambios == 'new'"
+      routerLink="/punto3-list" (click)="guardarTicket()">Registrar</button>
+    <button type="button" class="btn btn-primary" [disabled]="!ticketForm.form.valid" *ngIf=" cambios == 'modificar'"
+      routerLink="/punto3-list" (click)="modificarTicket()">Modificar</button>
+    <button type="button" class="btn btn-primary" routerLink="/punto3-list">Ir al Listado de Tickets</button>
+
+  </div>
+</form>

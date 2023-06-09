@@ -1,0 +1,117 @@
+<form #transaccion="ngForm" class="container">
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Transacciones</h5>
+                <div class="btn btn-primary" (click)="mostrarTransacciones()">Ver Transacciones Registradas</div>
+                <br>
+                <div class="text-center">
+                    <br>
+                    <div>
+                        <div class="mb-3 form-check">
+                            <label for="origen" class="form-label">Moneda de Origen:</label>
+                            <select class="form-select" aria-label="Default select example" id="origen" name="origen"
+                                [(ngModel)]="monedaOrigen" required #origen="ngModel">
+                                <option>USD</option>
+                                <option>EUR</option>
+                                <option>ARS</option>
+                            </select>
+                            <div *ngIf="origen.invalid && (origen.dirty || origen.touched)" class="alert alert-danger">
+                                <div *ngIf="origen.errors?.['required']">
+                                    El Origen de la Moneda es requerida
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-3 form-check">
+                            <label for="destino" class="form-label">Moneda de Destino:</label>
+                            <select class="form-select" aria-label="Default select example" id="destino" name="destino"
+                                [(ngModel)]="monedaDestino" required #destino="ngModel">
+                                <option>USD</option>
+                                <option>EUR</option>
+                                <option>ARS</option>
+                            </select>
+                            <div *ngIf="destino.invalid && (destino.dirty || destino.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="destino.errors?.['required']">
+                                    El Destino de la Moneda es requerida
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" [disabled]="!transaccion.form.valid"
+                (click)="mostrarOrigenDestinoTransacciones()">Ver Todas las Transacciones con Origen y Destino
+            </button>
+        </div>
+    </div>
+</form>
+
+<br>
+<!-- Seccion de Listar Todas las Transferencias -->
+<div class="card text-center" *ngIf="this.visible == true">
+    <div class="card-body">
+        <h5 class="card-title">Transacciones Registradas</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-dark table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Moneda Origen</th>
+                        <th>Cantidad Origen</th>
+                        <th>Moneda Destino</th>
+                        <th>Cantidad Destino</th>
+                        <th>Email Cliente</th>
+                        <th>Tasa de Conversion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let total of totalTransacciones">
+                        <td>{{total._id}}</td>
+                        <td>{{total.monedaOrigen}}</td>
+                        <td>{{total.cantidadDestino}}</td>
+                        <td>{{total.monedaDestino}}</td>
+                        <td>{{total.cantidadOrigen}}</td>
+                        <td>{{total.emailCliente}}</td>
+                        <td>{{total.tasaConversion}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Seccion de Listar Todas las Transferencias por Origen y Destino -->
+<div class="card text-center" *ngIf="this.visible1 == true">
+    <div class="card-body">
+        <h5 class="card-title">Transacciones por Origen y Destino</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-dark table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Moneda Origen</th>
+                        <th>Cantidad Origen</th>
+                        <th>Moneda Destino</th>
+                        <th>Cantidad Destino</th>
+                        <th>Email Cliente</th>
+                        <th>Tasa de Conversion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let total1 of totalTransaccionesOrigenDestino">
+                        <td>{{total1._id}}</td>
+                        <td>{{total1.monedaOrigen}}</td>
+                        <td>{{total1.cantidadDestino}}</td>
+                        <td>{{total1.monedaDestino}}</td>
+                        <td>{{total1.cantidadOrigen}}</td>
+                        <td>{{total1.emailCliente}}</td>
+                        <td>{{total1.tasaConversion}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

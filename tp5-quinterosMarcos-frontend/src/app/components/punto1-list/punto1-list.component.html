@@ -1,0 +1,13 @@
+<div class="row col-md-12">
+    <h3 class="text-center">Productos Destacados</h3>
+    <div class="card col-lg-4 col-md-6 col-12" *ngFor="let destacados of productosDestacados">
+        <br>
+        <img [src]="destacados.imagen" class="card-img-top h-50" alt="...">
+        <div class="card-title"><strong>Título: {{destacados.nombre}}</strong></div>
+        <div class="card-body">
+            <p class="card-text"><strong>Descripcion: {{destacados.descripcion}}</strong></p>
+            <p class="card-text"><strong>Precio: ${{destacados.precio}}</strong></p>
+            <p class="card-text"><strong>Stock: {{destacados.stock}} unidades</strong></p> 
+        </div>
+    </div>
+</div>

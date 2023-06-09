@@ -1,0 +1,98 @@
+<div class="text-center border p-4">
+    <h3>Formulario De Producto</h3>
+    <form #productosForm="ngForm" class="container">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <br>
+            <input type="string" class="form-control-sm" id="nombre" name="nombre" 
+                [(ngModel)]="nombreProducto" required #nombre="ngModel" /> <!-- #nombre es una variable de control-->
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+                <!-- Si es invalido, touched si la caja a sido tocada, dirty cuando la caja no esta limpia  -->
+                <div *ngIf="nombre.errors?.['required']"> <!-- Si es que tiene errores si contiene required-->
+                    El Nombre es requerido.
+                </div>
+                <div *ngIf="nombre.errors?.['pattern']">
+                    Solo se permiten letras en el Nombre.
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripcion:</label>
+            <br>
+            <input type="string" class="form-control-sm" id="descripcion" name="descripcion"
+                [(ngModel)]="descripcionProducto" required #descripcion="ngModel" />
+            <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
+                <!-- Si es invalido, touched si la caja a sido tocada, dirty cuando la caja no esta limpia  -->
+                <div *ngIf="descripcion.errors?.['required']"> <!-- Si es que tiene errores si contiene required-->
+                    La Descripcion es requerida.
+                </div>
+                <div *ngIf="descripcion.errors?.['pattern']">
+                    Solo se permiten letras en la descripcion.
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen:</label>
+            <br>
+            <input type="string" class="form-control-sm" id="imagen" name="imagen" [(ngModel)]="imagenProducto" required
+                #imagen="ngModel" />
+            <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="alert alert-danger">
+                <!-- Si es invalido, touched si la caja a sido tocada, dirty cuando la caja no esta limpia  -->
+                <div *ngIf="imagen.errors?.['required']"> <!-- Si es que tiene errores si contiene required-->
+                    La imagen es requerida.
+                </div>
+                <div *ngIf="imagen.errors?.['pattern']">
+                    Solo se permiten letras en la imagen.
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio:</label>
+            <br>
+            <input type="number" class="form-control-sm" id="precio" name="precio" min="0" [(ngModel)]="precioProducto"
+                required #precio="ngModel" />
+            <div *ngIf="precio.invalid && (precio.dirty || precio.touched) " class="alert alert-danger">
+                <!-- Si es invalido, touched si la caja a sido tocada, dirty cuando la caja no esta limpia  -->
+                <div *ngIf="precio.errors?.['required']"> <!-- Si es que tiene errores si contiene required-->
+                    El Precio es requerido.
+                </div>
+                <div *ngIf="precio.errors?.['min']">
+                    Solo se permiten valores positivos en el precio.
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock:</label>
+            <br>
+            <input type="number" class="form-control-sm" id="stock" name="stock" min="0" [(ngModel)]="stockProducto"
+                required #stock="ngModel" />
+            <div *ngIf="stock.invalid && (stock.dirty || stock.touched)" class="alert alert-danger">
+                <!-- Si es invalido, touched si la caja a sido tocada, dirty cuando la caja no esta limpia  -->
+                <div *ngIf="stock.errors?.['required']"> <!-- Si es que tiene errores si contiene required-->
+                    El Stock es requerido.
+                </div>
+                <div *ngIf="stock.errors?.['min']">
+                    Solo se permiten valores positivos en el stock.
+                </div>
+            </div>
+            <br>
+            <br>
+            <input type="checkbox" class="form-check-input " id="destacado" name="destacado"
+                [(ngModel)]="destacadoProducto" required #destacado="ngModel">
+            <label class="form-check-label" for="destacado">Destacado</label>
+        </div>
+
+        <br>
+        <button type="button" class="btn btn-primary" [disabled]="!productosForm.form.valid" *ngIf=" cambios == 'new'"
+            (click)="altaProductos()"  routerLink="/punto1-list">Registrar</button>
+        <!-- <button type="button" class="btn btn-primary" [disabled]="!ticketForm.form.valid" *ngIf=" cambios == 'modificar'"
+          (click)="guardarTicket()">Modificar</button>  -->
+        <button type="button" class="btn btn-primary" routerLink="/punto1-list">Ir al Listado de Productos
+            Destacados</button>
+        
+    </form>
+    <div class="alert alert-primary" role="alert" *ngIf="guardar">
+        <meta http-equiv="refresh" content="7">
+        Producto Guardado
+    </div>
+</div>

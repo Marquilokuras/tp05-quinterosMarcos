@@ -1,0 +1,109 @@
+<form #transaccion="ngForm" class="container">
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Transacciones</h5>
+                <div class="btn btn-primary" (click)="mostrarTickets()">Ver Tickets</div>
+                <br>
+                <div>
+                    <br>
+                    <div class="mb-3 form-check">
+                        <label for="categoria" class="form-label">Categoria del Espectador:</label>
+                        <select class="form-select" aria-label="Default select example" id="categoria" name="categoria"
+                            [(ngModel)]="categorias" required #categoria="ngModel">
+                            <option value="l">Local</option>
+                            <option value="e">Extranjero</option>
+                        </select>
+                        <div *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="categoria.errors?.['required']">
+                                La Categoria del Espectador es requerida
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" [disabled]="!transaccion.form.valid" (click)="mostrarTicketCategoria()">Ver
+                    Todos los Tickes por Categoria
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br>
+<!-- Seccion de Listar Todas las Transferencias -->
+<div class="card text-center" *ngIf="this.visible == true">
+    <div class="card-body">
+        <h5 class="card-title">Tickets Registrados</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-dark table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Precio Ticket</th>
+                        <th>Categoria de Espectador</th>
+                        <th>Fecha Compra</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Dni</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let total of totalTickets">
+                        <td>{{total._id}}</td>
+                        <td>{{total.precioTicket}}</td>
+                        <td>{{total.categoriaEspectador}}</td>
+                        <td>{{total.fechaCompra}}</td>
+                        <td>{{total.espectador.apellido}}</td>
+                        <td>{{total.espectador.nombre}}</td>
+                        <td>{{total.espectador.dni}}</td>
+                        <td>{{total.espectador.email}}</td>
+                        <td>
+                            <button class="bg-warning" routerLink="/punto3/:id"  (click)="modificarTicket(total._id)">Modificar</button>
+                            <button class="bg-danger" (click)="eliminarTicket(total._id)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-danger" role="alert" *ngIf="eliminado">
+                <meta http-equiv="refresh" content="7">
+                Ticket Eliminado
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Seccion de Listar Todos los Tickes correspondientes a una Categoria en especifico -->
+<div class="card text-center" *ngIf="this.visible1 == true">
+    <div class="card-body">
+        <h5 class="card-title">Tickets Registrados por Categoria</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-dark table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Precio Ticket</th>
+                        <th>Categoria de Espectador</th>
+                        <th>Fecha Compra</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Dni</th>
+                        <th>Email</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let total of totalTicketsCategoria">
+                        <td>{{total._id}}</td>
+                        <td>{{total.precioTicket}}</td>
+                        <td>{{total.categoriaEspectador}}</td>
+                        <td>{{total.fechaCompra}}</td>
+                        <td>{{total.espectador.apellido}}</td>
+                        <td>{{total.espectador.nombre}}</td>
+                        <td>{{total.espectador.dni}}</td>
+                        <td>{{total.espectador.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
